@@ -41,5 +41,6 @@ public class FlyByWire extends CommandBase {
 	public void end(boolean interrupted) {
 		if (interrupted == false) {
 		}
+		KitDrivetrain.getInstance().arcade_drive(0, 0);
 	}
 }

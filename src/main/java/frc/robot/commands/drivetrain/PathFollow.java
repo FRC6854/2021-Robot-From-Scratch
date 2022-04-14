@@ -31,5 +31,6 @@ public class PathFollow extends CommandBase {
 		if (interrupted == false) {
 		}
 		p = 0;
+		KitDrivetrain.getInstance().arcade_drive(0, 0);
 	}
 }
