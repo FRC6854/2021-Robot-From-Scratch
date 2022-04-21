@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.drivetrain.PathFollow;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
+import frc.robot.subsystems.Shooter;
 import viking.Controller;
 
 /**
@@ -23,6 +25,8 @@ public class RobotContainer {
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		KitDrivetrain.getInstance();
+		Shooter.getInstance();
+		Conveyor.getInstance();
 		driver = new Controller(0);
 		// Configure the button bindings
 		configureButtonBindings();
