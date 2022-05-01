@@ -1,13 +1,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.drivetrain.ArcadeDrive;
-import frc.robot.commands.drivetrain.FlyByWire;
 import viking.controllers.ctre.VikingSPX;
 import viking.controllers.ctre.VikingSRX;
 
@@ -19,8 +15,6 @@ public class KitDrivetrain extends SubsystemBase implements RobotMap {
 	private VikingSPX right_follower = null;
 	private DifferentialDrive diff_drive = null;
 
-	private SendableChooser<Integer> teleop_drivetrain_cmd_chooser = null;
-
 	public KitDrivetrain() {
 		boolean is_inverted = Robot.isReal();
 
@@ -31,29 +25,10 @@ public class KitDrivetrain extends SubsystemBase implements RobotMap {
 		right_follower = new VikingSPX(CAN_RIGHT_BACK, right_master, is_inverted);
 
 		diff_drive = new DifferentialDrive(left_master, right_master);
-
-		teleop_drivetrain_cmd_chooser = new SendableChooser<>();
-		teleop_drivetrain_cmd_chooser.setDefaultOption("ArcadeDrive", 1);
-		teleop_drivetrain_cmd_chooser.addOption("Fly-by-Wire", 2);
-		SmartDashboard.putData(teleop_drivetrain_cmd_chooser);
 	}
 
 	@Override
-	public void periodic() {
-		if (getCurrentCommand() != null) { // a command is running
-			if ((teleop_drivetrain_cmd_chooser.getSelected() == 2)
-				&& (getCurrentCommand().getName().equals("ArcadeDrive"))) {
-				System.out.println("Fly-by-Wire selected");
-				getCurrentCommand().cancel();
-				new FlyByWire().schedule();
-			} else if ((teleop_drivetrain_cmd_chooser.getSelected() == 1)
-					   && (getCurrentCommand().getName().equals("FlyByWire"))) {
-				System.out.println("ArcadeDrive selected");
-				getCurrentCommand().cancel();
-				new ArcadeDrive().schedule();
-			}
-		}
-	}
+	public void periodic() {}
 
 	@Override
 	public void simulationPeriodic() {}
@@ -61,7 +36,6 @@ public class KitDrivetrain extends SubsystemBase implements RobotMap {
 	public static KitDrivetrain getInstance() {
 		if (instance == null) {
 			instance = new KitDrivetrain();
-			instance.setDefaultCommand(new ArcadeDrive());
 		}
 
 		return instance;

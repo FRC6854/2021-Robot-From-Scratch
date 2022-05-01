@@ -6,7 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.commands.drivetrain.FlyByWire;
 import frc.robot.commands.drivetrain.PathFollow;
 import frc.robot.subsystems.KitDrivetrain;
 import viking.Controller;
@@ -20,12 +24,21 @@ import viking.Controller;
 public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
 	public static Controller driver = null;
+
+	// command chooser
+	private SendableChooser<Command> teleop_drivetrain_cmd_chooser = null;
+
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		KitDrivetrain.getInstance();
 		driver = new Controller(0);
 		// Configure the button bindings
 		configureButtonBindings();
+
+		teleop_drivetrain_cmd_chooser = new SendableChooser<>();
+		teleop_drivetrain_cmd_chooser.setDefaultOption("ArcadeDrive", new ArcadeDrive());
+		teleop_drivetrain_cmd_chooser.addOption("Fly-by-Wire", new FlyByWire());
+		SmartDashboard.putData(teleop_drivetrain_cmd_chooser);
 	}
 
 	/**
@@ -35,6 +48,15 @@ public class RobotContainer {
 	 * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {}
+
+	/**
+	 * Use this to pass the teleop command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in teleop
+	 */
+	public Command getTeleopCommand() {
+		return teleop_drivetrain_cmd_chooser.getSelected();
+	}
 
 	/**
 	 * Use this to pass the autonomous command to the main {@link Robot} class.

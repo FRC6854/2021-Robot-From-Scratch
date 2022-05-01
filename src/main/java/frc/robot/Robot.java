@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		CommandScheduler.getInstance().cancel(KitDrivetrain.getInstance().getCurrentCommand());
+		KitDrivetrain.getInstance().getCurrentCommand().cancel();
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
 		// schedule the autonomous command (example)
@@ -81,11 +81,18 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		m_robotContainer.getTeleopCommand().schedule();
 	}
 
 	/** This function is called periodically during operator control. */
 	@Override
-	public void teleopPeriodic() {}
+	public void teleopPeriodic() {
+		if (KitDrivetrain.getInstance().getCurrentCommand()
+			!= m_robotContainer.getTeleopCommand()) {
+			KitDrivetrain.getInstance().getCurrentCommand().cancel();
+			m_robotContainer.getTeleopCommand().schedule();
+		}
+	}
 
 	@Override
 	public void testInit() {
