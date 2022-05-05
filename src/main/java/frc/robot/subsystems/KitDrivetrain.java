@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.drivetrain.ArcadeDrive;
-import viking.Logging;
+import viking.logging.Logging;
 import viking.controllers.ctre.VikingSPX;
 import viking.controllers.ctre.VikingSRX;
 
@@ -29,10 +29,10 @@ public class KitDrivetrain extends SubsystemBase implements RobotMap {
 		diff_drive = new DifferentialDrive(left_master, right_master);
 	}
 
-	@Override
-	public void periodic() {
-		Logging.unimp();
-	}
+	//@Override
+	//public void periodic() {
+	//	Logging.unimp();
+	//}
 
 	@Override
 	public void simulationPeriodic() {

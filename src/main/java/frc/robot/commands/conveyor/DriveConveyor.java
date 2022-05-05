@@ -42,13 +42,13 @@ public class DriveConveyor extends CommandBase {
 		else {
 			if (output > 0) {
 			//	LEDController.getInstance().setMode(LEDMode.BOTH_FWRD);
-				conveyor.setOutputIntake(output);
+				conveyor.setOutputIntake(output); // max is 1 
 				conveyor.setOutputUpper(output / 10);
 			}
 			else if (output < 0) {
 			//	LEDController.getInstance().setMode(LEDMode.BOTH_BKWD);
 				conveyor.setOutputIntake(output / 10);
-				conveyor.setOutputUpper(output);
+				conveyor.setOutputUpper(output); // -1, aka go down
 			}
 			else {
 			//	LEDController.getInstance().setMode(LEDMode.DEFAULT);
@@ -56,7 +56,9 @@ public class DriveConveyor extends CommandBase {
 				conveyor.fullStopUpper();
 			}
 		}
+		System.out.println(output);
 	}
+	
 
 	@Override
 	public void end(boolean interrupted) {

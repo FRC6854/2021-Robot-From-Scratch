@@ -6,7 +6,7 @@ import frc.robot.commands.shooter.DriveShooter;
 import viking.controllers.rev.VikingMAX;
 
 public class Shooter extends SubsystemBase implements RobotMap {
-
+	
 	private static Shooter instance = null;
 
 	private VikingMAX topShooter = null;
