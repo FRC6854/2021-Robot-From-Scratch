@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -39,6 +40,8 @@ public class RobotContainer {
 		teleop_drivetrain_cmd_chooser.setDefaultOption("ArcadeDrive", new ArcadeDrive());
 		teleop_drivetrain_cmd_chooser.addOption("Fly-by-Wire", new FlyByWire());
 		SmartDashboard.putData(teleop_drivetrain_cmd_chooser);
+
+		CameraServer.startAutomaticCapture();
 	}
 
 	/**
