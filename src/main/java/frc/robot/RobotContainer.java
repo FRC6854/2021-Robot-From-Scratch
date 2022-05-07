@@ -28,6 +28,7 @@ public class RobotContainer {
 
 	// command chooser
 	private SendableChooser<Command> teleop_drivetrain_cmd_chooser = null;
+	private SendableChooser<Command> autonomous_command_chooser = null;
 
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
@@ -39,7 +40,11 @@ public class RobotContainer {
 		teleop_drivetrain_cmd_chooser = new SendableChooser<>();
 		teleop_drivetrain_cmd_chooser.setDefaultOption("ArcadeDrive", new ArcadeDrive());
 		teleop_drivetrain_cmd_chooser.addOption("Fly-by-Wire", new FlyByWire());
-		SmartDashboard.putData(teleop_drivetrain_cmd_chooser);
+		SmartDashboard.putData("Teleop command", teleop_drivetrain_cmd_chooser);
+
+		autonomous_command_chooser = new SendableChooser<>();
+		autonomous_command_chooser.setDefaultOption("Path Follow", new PathFollow());
+		SmartDashboard.putData("Autonomous command", autonomous_command_chooser);
 
 		CameraServer.startAutomaticCapture();
 	}
@@ -67,6 +72,6 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		return new PathFollow();
+		return autonomous_command_chooser.getSelected();
 	}
 }
