@@ -14,6 +14,7 @@ import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.FlyByWire;
 import frc.robot.commands.drivetrain.PathFollow;
 import frc.robot.commands.testing.DriveDistance;
+import frc.robot.commands.testing.Rotate;
 import frc.robot.commands.testing.VisionTest;
 import frc.robot.subsystems.KitDrivetrain;
 import viking.Controller;
@@ -48,6 +49,7 @@ public class RobotContainer {
 		autonomous_command_chooser.setDefaultOption("Path Follow", new PathFollow());
 		autonomous_command_chooser.addOption("Vision Test", new VisionTest());
 		autonomous_command_chooser.addOption("Drive Distance", new DriveDistance());
+		autonomous_command_chooser.addOption("Rotate", new Rotate());
 		SmartDashboard.putData("Autonomous command", autonomous_command_chooser);
 
 		CameraServer.startAutomaticCapture();
