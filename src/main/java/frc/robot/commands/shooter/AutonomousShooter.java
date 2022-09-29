@@ -2,6 +2,7 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.RobotMap;
 
@@ -10,31 +11,31 @@ import frc.robot.RobotMap;
  */
 public class AutonomousShooter extends CommandBase implements RobotMap {
     
-    
-    double time  = 1; //90 //3
-    double power = 1.0;
+    double power = 1.0; 
     long p = 0;
 
     public AutonomousShooter() {
         addRequirements(Conveyor.getInstance());
         addRequirements(Shooter.getInstance());
-		
+		addRequirements(KitDrivetrain.getInstance());
         
     }
 
     @Override
-    public void execute() {
-        for (int i = 0; i < time; i++) {
+    public void execute() { // Runs every 20 ms
+        
             Conveyor.getInstance().setOutputIntake(power);
-            Conveyor.getInstance().setOutputUpper(power / 5); //10 is the base, it slows the upper conveyor down to not kill it
-                                                              // I have set it to 5 now which des make it around twice as fast in general
+            Conveyor.getInstance().setOutputUpper(power / 8); //10 is the base, it slows the upper conveyor down to not kill it
+                                                              
             Shooter.getInstance().setOutputTop(MIN_SPEED);
 			Shooter.getInstance().setOutputBottom(MIN_SPEED);
             
-        }
+            if (p < 75) { //For 1.5 seconds, the robot goes forwards (the conveyor is the front) to pick up any balls behind it
+                KitDrivetrain.getInstance().arcade_drive(0.25, 0);
+            }
+        
         p++;
-        if(p>=400){ //110 = around 2.3 sec when time = 3
-            // 200 = around 4.1 secs when time is 1
+        if(p>=600){ //After 12 seconds, stop the robot
             cancel();
         }
     }
@@ -47,7 +48,6 @@ public class AutonomousShooter extends CommandBase implements RobotMap {
 		Conveyor.getInstance().fullStopUpper();
         Shooter.getInstance().fullStopTop();
 		Shooter.getInstance().fullStopBottom();
-        
-       
+        KitDrivetrain.getInstance().arcade_drive(0,0);
     }
 }
