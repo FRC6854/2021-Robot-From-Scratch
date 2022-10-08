@@ -6,9 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.drivetrain.PathFollow;
-import frc.robot.commands.shooter.AutonomousShooter;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
@@ -41,14 +38,5 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		
-	}
-	/**
-	 * Use this to pass the autonomous command to the main {@link Robot} class.
-	 *
-	 * @return the command to run in autonomous
-	 */
-	public Command getAutonomousCommand() {
-		//return new PathFollow();
-		return new AutonomousShooter();
 	}
 }
